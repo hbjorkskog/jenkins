@@ -47,7 +47,7 @@
 							}
 						],
 						"url": {
-							"raw": "https://localhost:8443/bank/api/v1/auth?password=Demo123!&username=admin%40demo.io",
+							"raw": "http://16.170.253.160:8080/bank/api/v1/auth?password=Demo123!&username=admin%40demo.io",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -111,7 +111,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://localhost:8443/bank/api/v1/user",
+							"raw": "http://16.170.253.160:8080/bank/api/v1/user",
 							"protocol": "https",
 							"host": [
 								"localhost"
