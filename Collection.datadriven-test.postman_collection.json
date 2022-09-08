@@ -1,0 +1,132 @@
+{
+	"info": {
+		"_postman_id": "07304358-fc0a-42ea-bc32-72193d2f857e",
+		"name": "Datadriven-test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23176270"
+	},
+	"item": [
+		{
+			"name": "Datadreven test",
+			"item": [
+				{
+					"name": "Brønnøysund Test SOCO",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);",
+									"});",
+									"pm.test(\"Response includes the name SOCO\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"SOCO\");",
+									"});",
+									"pm.test(\"Number of employees is correct\", function () {",
+									"    var jsonData = pm.response.json();",
+									"    pm.expect(jsonData.antallAnsatte).to.eql(57);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://data.brreg.no/enhetsregisteret/api/enheter/999007228",
+							"protocol": "https",
+							"host": [
+								"data",
+								"brreg",
+								"no"
+							],
+							"path": [
+								"enhetsregisteret",
+								"api",
+								"enheter",
+								"999007228"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enhetsregister check from .CSV",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"var jsonResponse = JSON.parse(responseBody);",
+									"pm.collectionVariables.set(\"postnummer\", jsonResponse.forretningsadresse.postnummer);",
+									"console.log(\"postnummer = \" + jsonResponse.forretningsadresse.postnummer)",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"orgnr\":\"{{number}}\"\n    \"navn\":\"{{name}}\"\n    \"postnr\":\"{{number}}\"\n    \"poststed\":\"{{name}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://data.brreg.no/enhetsregisteret/api/enheter/{{orgnr}}",
+							"protocol": "https",
+							"host": [
+								"data",
+								"brreg",
+								"no"
+							],
+							"path": [
+								"enhetsregisteret",
+								"api",
+								"enheter",
+								"{{orgnr}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "authToken",
+			"value": ""
+		},
+		{
+			"key": "Postnummer",
+			"value": ""
+		},
+		{
+			"key": "postnummer",
+			"value": ""
+		}
+	]
+}
